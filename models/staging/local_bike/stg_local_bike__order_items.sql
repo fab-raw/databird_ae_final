@@ -5,6 +5,6 @@ select
     product_id,
     quantity, 
     list_price as unit_price,
-    discount as discount_percentage
-    (quantity * unit_price) * discount as order_item_final_price
+    discount as discount_percentage,
+    (quantity * list_price) * discount as order_item_final_price
 from {{ source('local_bike', 'order_items') }}

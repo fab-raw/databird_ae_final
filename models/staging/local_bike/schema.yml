@@ -32,7 +32,7 @@ models:
     description: "This model contains information about the orders at items level, for a product with its unit price, the quantity and discount"
     columns:
       - name: order_item_id
-        description: "Primary key, unique identifier for each order item"
+        description: "Primary key, unique identifier for each order item, built with order_id and item_id"
         tests:
             - unique
             - not_null
@@ -56,10 +56,25 @@ models:
 
       - name: customer_id
         description: "Foreign key, referring to the customer who ordered"
+        tests:
+          - relationships:
+              name: customer_id_foreign_key_in_stg_local_bike__orders
+              to: ref('stg_local_bike__customers')
+              field: customer_id
       - name: store_id
         description: "Foreign key, referring to the store where the order was made"
+        tests:
+          - relationships:
+              name: store_id_foreign_key_in_stg_local_bike__orders
+              to: ref('stg_local_bike__stores')
+              field: store_id
       - name: staff_id
         description: "Foreign key, referring to the staff who made the order"
+        tests:
+          - relationships:
+              name: staff_id_foreign_key_in_stg_local_bike__orders
+              to: ref('stg_local_bike__staffs')
+              field: staff_id
 
   - name: stg_local_bike__products
     description: "This model contains information about the products of local bike such as brand, category and unit price"
@@ -72,8 +87,18 @@ models:
 
       - name: brand_id
         description: "Foreign key, referring to the brand producing the product"
+        tests:
+          - relationships:
+              name: brand_id_foreign_key_in_stg_local_bike__products
+              to: ref('stg_local_bike__brands')
+              field: brand_id
       - name: category_id
         description: "Foreign key, referring to the category of product"
+        tests:
+          - relationships:
+              name: category_id_foreign_key_in_stg_local_bike__products
+              to: ref('stg_local_bike__categories')
+              field: category_id
 
   - name: stg_local_bike__staffs
     description: "This model contains information about the staff of local bike such as personal information, in which store he works and management relation"
@@ -86,17 +111,23 @@ models:
 
       - name: store_id
         description: "Foreign key, referring to the store where the staff works"
+        tests:
+          - relationships:
+              name: store_id_foreign_key_in_stg_local_bike__staffs
+              to: ref('stg_local_bike__stores')
+              field: store_id
       - name: manager_id
         description: "Foreign key, referring to the manager, who is also a staff member"
+
 
   - name: stg_local_bike__stocks
     description: "This model contains information about local bike's stock for products and quantity related to a store"
     columns:
-      - name: store_id
-        description: "Primary key, with product_id"
-      - name: product_id
-        description: "Primary key, with store_id"
-        # tests??
+      - name: product_in_store_id
+        description: "Primary key, unique identifier of a product in a store, built with store_id and product_id"
+        tests:
+            - unique
+            - not_null
 
   - name: stg_local_bike__stores
     description: "This model contains information about the stores of local bike, with adress informations"
