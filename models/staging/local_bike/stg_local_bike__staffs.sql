@@ -6,5 +6,5 @@ select
     phone,
     active AS is_active,
     store_id,
-    manager_id
+    manager_id -- quid d'un manager_id null ?
 from {{ source('local_bike', 'staffs') }}
