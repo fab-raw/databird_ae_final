@@ -6,34 +6,54 @@ models:
     columns:
       - name: brand_id
         description: "Primary key, unique identifier for each brand"
+        tests:
+            - unique
+            - not_null
 
   - name: stg_local_bike__categories
     description: "This model contains information about categories of bike"
     columns:
       - name: category_id
         description: "Primary key, unique identifier for each category"
+        tests:
+            - unique
+            - not_null
 
   - name: stg_local_bike__customers
     description: "This model contains information about the customers of local bike, with personal informations such as email telephone and postal adress"
     columns:
       - name: customer_id
         description: "Primary key, unique identifier for each customer"
+        tests:
+            - unique
+            - not_null
 
   - name: stg_local_bike__order_items
     description: "This model contains information about the orders at items level, for a product with its unit price, the quantity and discount"
     columns:
-      - name: order_id
-        description: "Primary key with item_id unique identifier for each order item"
-      - name: item_id
-        description: "Primary key with order_id, unique identifier for each order item"
+      - name: order_item_id
+        description: "Primary key, unique identifier for each order item"
+        tests:
+            - unique
+            - not_null
+
       - name: product_id
         description: "Foreign key linking the order item to the corresponding product"
+        tests:
+          - relationships:
+              name: product_id_foreign_key_in_stg_local_bike__products
+              to: ref('stg_local_bike__products')
+              field: product_id
 
   - name: stg_local_bike__orders
     description: "This model contains information about the orders of a customer, with status informations and buying informations (shop where it was bought + staff)"
     columns:
       - name: order_id
         description: "Primary key, unique identifier for each order"
+        tests:
+            - unique
+            - not_null
+
       - name: customer_id
         description: "Foreign key, referring to the customer who ordered"
       - name: store_id
@@ -46,6 +66,10 @@ models:
     columns:
       - name: product_id
         description: "Primary key, unique identifier for each product"
+        tests:
+            - unique
+            - not_null
+
       - name: brand_id
         description: "Foreign key, referring to the brand producing the product"
       - name: category_id
@@ -56,21 +80,29 @@ models:
     columns:
       - name: staff_id
         description: "Primary key, unique identifier for each staff"
+        tests:
+            - unique
+            - not_null
+
       - name: store_id
         description: "Foreign key, referring to the store where the staff works"
       - name: manager_id
         description: "Foreign key, referring to the manager, who is also a staff member"
 
   - name: stg_local_bike__stocks
-    description: "This model contains information about the stock of local bike for products and quantity related to a store"
+    description: "This model contains information about local bike's stock for products and quantity related to a store"
     columns:
       - name: store_id
         description: "Primary key, with product_id"
       - name: product_id
         description: "Primary key, with store_id"
+        # tests??
 
   - name: stg_local_bike__stores
     description: "This model contains information about the stores of local bike, with adress informations"
     columns:
       - name: store_id
         description: "Primary key, unique identifier for each store"
+        tests:
+            - unique
+            - not_null

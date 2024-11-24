@@ -4,7 +4,7 @@ select
     last_name,
     email, 
     phone,
-    active,
+    active AS is_active,
     store_id,
     manager_id
 from {{ source('local_bike', 'staffs') }}
