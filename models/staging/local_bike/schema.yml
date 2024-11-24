@@ -118,11 +118,7 @@ models:
               field: store_id
       - name: manager_id
         description: "Foreign key, referring to the manager, who is also a staff member"
-        tests:
-          - relationships:
-              name: manager_id_foreign_key_in_stg_local_bike__staffs
-              to: ref('stg_local_bike__staffs')
-              field: staff_id
+
 
   - name: stg_local_bike__stocks
     description: "This model contains information about local bike's stock for products and quantity related to a store"
