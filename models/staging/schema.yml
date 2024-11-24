@@ -1,0 +1,76 @@
+version: 2
+
+models:
+  - name: stg_local_bike__brands
+    description: "This model contains information about brands sold by local bike"
+    columns:
+      - name: brand_id
+        description: "Primary key, unique identifier for each brand"
+
+  - name: stg_local_bike__categories
+    description: "This model contains information about categories of bike"
+    columns:
+      - name: category_id
+        description: "Primary key, unique identifier for each category"
+
+  - name: stg_local_bike__customers
+    description: "This model contains information about the customers of local bike, with personal informations such as email telephone and postal adress"
+    columns:
+      - name: customer_id
+        description: "Primary key, unique identifier for each customer"
+
+  - name: stg_local_bike__order_items
+    description: "This model contains information about the orders at items level, for a product with its unit price, the quantity and discount"
+    columns:
+      - name: order_id
+        description: "Primary key with item_id unique identifier for each order item"
+      - name: item_id
+        description: "Primary key with order_id, unique identifier for each order item"
+      - name: product_id
+        description: "Foreign key linking the order item to the corresponding product"
+
+  - name: stg_local_bike__orders
+    description: "This model contains information about the orders of a customer, with status informations and buying informations (shop where it was bought + staff)"
+    columns:
+      - name: order_id
+        description: "Primary key, unique identifier for each order"
+      - name: customer_id
+        description: "Foreign key, referring to the customer who ordered"
+      - name: store_id
+        description: "Foreign key, referring to the store where the order was made"
+      - name: staff_id
+        description: "Foreign key, referring to the staff who made the order"
+
+  - name: stg_local_bike__products
+    description: "This model contains information about the products of local bike such as brand, category and unit price"
+    columns:
+      - name: product_id
+        description: "Primary key, unique identifier for each product"
+      - name: brand_id
+        description: "Foreign key, referring to the brand producing the product"
+      - name: category_id
+        description: "Foreign key, referring to the category of product"
+
+  - name: stg_local_bike__staffs
+    description: "This model contains information about the staff of local bike such as personal information, in which store he works and management relation"
+    columns:
+      - name: staff_id
+        description: "Primary key, unique identifier for each staff"
+      - name: store_id
+        description: "Foreign key, referring to the store where the staff works"
+      - name: manager_id
+        description: "Foreign key, referring to the manager, who is also a staff member"
+
+  - name: stg_local_bike__stocks
+    description: "This model contains information about the stock of local bike for products and quantity related to a store"
+    columns:
+      - name: store_id
+        description: "Primary key, with product_id"
+      - name: product_id
+        description: "Primary key, with store_id"
+
+  - name: stg_local_bike__stores
+    description: "This model contains information about the stores of local bike, with adress informations"
+    columns:
+      - name: store_id
+        description: "Primary key, unique identifier for each store"
