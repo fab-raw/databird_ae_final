@@ -3,8 +3,8 @@ select
     order_id,
     item_id,
     product_id,
-    quantity, 
-    list_price as unit_price,
+    quantity AS item_quantity, 
+    list_price as item_price,
     discount as discount_percentage,
-    ROUND(((quantity * list_price) * discount), 2) as order_item_final_price
+    ROUND(quantity * (list_price * (1 -discount)), 2) as total_order_item_amount
 from {{ source('local_bike', 'order_items') }}
