@@ -2,7 +2,7 @@ WITH products_sold AS (
 
 SELECT 
     store_id,
-    product_id
+    product_id,
     SUM(item_quantity) AS total_items_sold,
     SUM(total_order_item_amount) AS total_sales_amount
 
@@ -18,9 +18,9 @@ SELECT
     stocks.product_id,
     stocks.store_name,
     stocks.product_name,
-    stocks.quantity,
+    stocks.stock_quantity,
     products_sold.total_items_sold,
     products_sold.total_sales_amount
 
 FROM {{ ref('int_local_bike__stocks')}} AS stocks
-LEFT JOIN products_sold AS products ON products_sold.store_id = stocks.store_id AND products_sold.product_id = stocks.product_id
+LEFT JOIN products_sold ON products_sold.store_id = stocks.store_id AND products_sold.product_id = stocks.product_id
