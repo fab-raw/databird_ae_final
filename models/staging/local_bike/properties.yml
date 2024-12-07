@@ -123,7 +123,7 @@ models:
   - name: stg_local_bike__stocks
     description: "This model contains information about local bike's stock for products and quantity related to a store"
     columns:
-      - name: product_in_store_id
+      - name: stock_id
         description: "Primary key, unique identifier of a product in a store, built with store_id and product_id"
         tests:
             - unique

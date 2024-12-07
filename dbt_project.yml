@@ -43,6 +43,14 @@ models:
   local_bike:
     # Applies to all files under models/example/
     staging:
-      materialized: view
       local_bike:
         schema: stg_local_bike
+        materialized: view
+    intermediate:
+      local_bike:
+        schema: int_local_bike
+        materialized: view
+    mart:
+      operations:
+        schema: mrt_operations
+        materialized: table
