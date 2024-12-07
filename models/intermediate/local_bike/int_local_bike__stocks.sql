@@ -3,6 +3,7 @@ SELECT
     stocks.store_id,
     stores.store_name,
     stocks.product_id,
+    stocks.stock_quantity,
     products.product_name
 
 FROM {{ ref('stg_local_bike__stocks')}} AS stocks
